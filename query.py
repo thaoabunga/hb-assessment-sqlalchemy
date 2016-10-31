@@ -60,32 +60,33 @@ def get_model_info(year):
     '''Takes in a year, and prints out each model, brand_name, and brand
     headquarters for that year using only ONE database query.'''
 
-	return db.session.query(Model.year, Model.name, Model.brand_name, Brand.headquarters).filter
-		(Model.year == year).join(Brand).all()
-
+    return db.session.query(Model.year, 
+							Model.name, 
+							Model.brand_name, 
+							Brand.headquarters).filter(Model.year == year).join(Brand).all()
 
 def get_brands_summary():
     '''Prints out each brand name, and each model name for that brand
      using only ONE database query.'''
 
-	brands_summary = db.session.query(Brand.name, Model.name).join(Model).order_by(Brand.name).all()
+brands_summary = db.session.query(Brand.name, Model.name).join(Model).order_by(Brand.name).all()
 
-	for brand, model in brands_summary:
-		print brand
+for brand, model in brands_summary:
+	print brand
 
 # -------------------------------------------------------------------
 # Part 2.5: Discussion Questions (Include your answers as comments.)
 
 # 1. What is the returned value and datatype of
 # ``Brand.query.filter_by(name='Ford')``?
-<flask_sqlalchemy.BaseQuery object at 0x7f1e5116fa90>
-type is flask_sqlalchemy.BaseQuery object
+#<flask_sqlalchemy.BaseQuery object at 0x7f1e5116fa90>
+#type is flask_sqlalchemy.BaseQuery object
 
 # 2. In your own words, what is an association table, and what *type* of
 # relationship does an association table manage?
 
-An association table is an object used to refer to additional information, it is used in 
-many to many relationships.
+#An association table is an object used to refer to additional information, it is used in 
+#many to many relationships.
 
 # -------------------------------------------------------------------
 # Part 3
@@ -97,10 +98,17 @@ def search_brands_by_name(mystr):
 
 def get_models_between(start_year, end_year):
 
-#	years = []
-#	all_models_between = []
-#i = 0
+	years = []
+	all_models_between = []
 
-#for i in range(end_year-start_year): ????
-#years.append(start_year+i) ?????
+	initialize = 0 #initialize i
+
+	for i in range(end_year-start_year): #difference between endyr and startyr
+		years.append(start_year+i)
+
+# Run a query for each of the years in the years list and append the
+# results to the all_models_between list.
+	for n in years:
+		all_models_between.append(db.session.query(Model).filter_by(year=n).order_by(Model.year).all())
+	return all_models_between
 

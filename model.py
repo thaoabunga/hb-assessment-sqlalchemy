@@ -20,13 +20,12 @@ class Model(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     year = db.Column(db.Integer, nullable=False)
     brand_name = db.Column(db.String(50), nullable=False, unique=True)
-    name = db.Column(db.String(50),
-                     nullable=False)
+    name = db.Column(db.String(50), nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Model id=%s year=%s brand_name=%s name=%s>" % (self.id,
+        return "<Model id=%s year=%s brand_name=%s name=%s>" % (self.model_id,
                                                                 self.year,
                                                                 self.brand_name,
                                                                 self.name)
@@ -51,7 +50,7 @@ class Brand(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Brand id=%s name=%s founded=%s headquarters=%s discontinued=%s>" % (self.id,
+        return "<Brand id=%s name=%s founded=%s headquarters=%s discontinued=%s>" % (self.brand_id,
                                                                                      self.name,
                                                                                      self.founded,
                                                                                      self.headquarters,
